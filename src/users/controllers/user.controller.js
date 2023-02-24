@@ -41,6 +41,10 @@ exports.insert = async (req, res) => {
     res.status(201).send();
 }
 
-exports.update = async (req, res) => {
-  
+exports.updateById = async (req, res) => {
+  const userId = req.params.id;
+  const userModel = mongoose.model('User', UserModel.userSchema);
+  userModel.findOneAndUpdate(userId, req.body).then((result) => {
+    res.status(204).send({});
+  });
 }

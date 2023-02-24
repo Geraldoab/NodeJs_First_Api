@@ -33,6 +33,10 @@ app.delete("/users/:id", [
     UserController.deleteById
 ])
 
+app.put("/users/:id", [
+    UserController.updateById
+]);
+
 // Starting the server
 app.listen(3001, () => {
     console.log('listening on port 3001');
