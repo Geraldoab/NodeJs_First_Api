@@ -1,11 +1,12 @@
 const UserModel = require('../models/user.model');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+require("dotenv-safe").config({silent: true});
 
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/firstApi');
+  await mongoose.connect(process.env.DB_CONNECTION);
 }
 
 exports.getAll = async (req, res) => {
