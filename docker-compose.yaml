@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  node-server:
+    build: .
+    container_name: node-server
+    entrypoint: ./.docker/entrypoint.sh
+    volumes:
+      - .:/home/node/api
+      - /home/node/api/node_modules
+    ports:
+      - '3001:3001'
+    depends_on:
+      - database
+
+  database:
+    image: mongo:latest
+    container_name: mongo_server
+    ports:
+      - "27017:27017"
+    restart: always 
+    environment:
+      MONGO_INITDB_DATABASE: firstApi
+    volumes:
+      - ./.docker//db:/data/db

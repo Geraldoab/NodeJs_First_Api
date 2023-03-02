@@ -1,4 +1,4 @@
-const UserController  = require('./users/controllers/user.controller');
+const UserController  = require('./src/users/controllers/user.controller');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,9 +8,14 @@ const morgan = require('morgan');
 require("dotenv-safe").config({silent: true});
 const jwt = require('jsonwebtoken');
 
-require('./users/models/user.model')
+require('./src/users/models/user.model')
 
 const app = express();
+
+const corsOptions = {
+    origin: 'http://example.com',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -18,7 +23,7 @@ app.use(cors());
 app.use(morgan('combined'));
 
 // Endpoint
-app.get('/', verifyJWT, [
+app.get('/', verifyJWT, cors(corsOptions), [
     UserController.getAll
 ]);
 
